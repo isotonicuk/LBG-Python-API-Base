@@ -6,7 +6,7 @@ from os import getenv
 
 PORT = getenv("PORT", 8080)
 HOST = "lbg-test"
-BASE_URL = f"http://{host}:{PORT}"
+BASE_URL = f"http://{HOST}:{PORT}"
 
 class MyLbgApiTestCase(unittest.TestCase):
 
