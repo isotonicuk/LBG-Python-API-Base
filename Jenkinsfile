@@ -21,10 +21,10 @@ pipeline {
                 sh "sh deploy.sh"
             }
         }
-        stage('PUsh to Docker Hub') {
+        stage('Push to Docker Hub') {
             steps {
                 sh '''
-                docker login -u $DOCKER_CREDS_USR -p $$DOCKER_CREDS_PSW
+                docker login -u $DOCKER_CREDS_USR -p $DOCKER_CREDS_PSW
                 docker push $DOCKER_CREDS_USR/$DOCKER_IMAGE
                 docker logout
                 '''
