@@ -5,8 +5,8 @@ set -e
 build_docker() {
     echo "Building the Docker image..."
     sleep 3
-    docker build -t $DOCKER_IMAGE .
+    docker build -t $DOCKER_CREDS_USR/$DOCKER_IMAGE .
 }
 echo "Start Build Process"
 build_docker
-echo "Finished Build Process"
+echo "Finished Build Process $DOCKER_CREDS_USR/$DOCKER_IMAGE"
