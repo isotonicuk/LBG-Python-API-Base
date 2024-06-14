@@ -10,15 +10,11 @@ pipeline {
                 sh "sh setup.sh"
             }
         }
-    }
-        stages {
         stage('Build step') {
             steps {
                 sh "sh build.sh"
             }
         }
-    }
-        stages {
         stage('Deploy step') {
             steps {
                 sh "sh deploy.sh"
