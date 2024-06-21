@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        GCR_CREDENTIALS_ID = 'ranj-w3-jenkins-json' // The ID you provided in Jenkins credentials
+        GCR_CREDENTIALS_ID = 'ranj-w3-jenkins-json' // The ID you provided in Jenkins credentials TEST
         IMAGE_NAME = 'ranj-week3'
         GCR_URL = 'gcr.io/lbg-mea-build-c19'
     }
