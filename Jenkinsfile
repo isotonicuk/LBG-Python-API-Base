@@ -1,33 +1,25 @@
-pipeline { 
+pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = "lbg"
-        PORT = "9000"
-        DOCKER_CREDS = credentials('dockerhub')
+        GCR_CREDENTIALS_ID = 'ranj-w3-jenkins-json' // The ID you provided in Jenkins credentials
+        IMAGE_NAME = 'ranj-week3'
+        GCR_URL = 'gcr.io/lbg-mea-build-c19'
     }
     stages {
-        stage('Cleanup step') {
+        stage('Build and Push to GCR') {
             steps {
-                sh "sh setup.sh"
-            }
-        }
-        stage('Build step') {
-            steps {
-                sh "sh build.sh"
-            }
-        }
-        stage('Deploy step') {
-            steps {
-                sh "sh deploy.sh"
-            }
-        }
-        stage('Push to Docker Hub') {
-            steps {
-                sh '''
-                docker login -u $DOCKER_CREDS_USR -p $DOCKER_CREDS_PSW
-                docker push $DOCKER_CREDS_USR/$DOCKER_IMAGE
-                docker logout
-                '''
+                script {
+                    // Authenticate with Google Cloud
+                    withCredentials([file(credentialsId: GCR_CREDENTIALS_ID, variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                        sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
+                    }
+                // Configure Docker to use gcloud as a credential helper
+                sh 'gcloud auth configure-docker --quiet'
+                // Build the Docker image
+                sh "docker build -t ${GCR_URL}/${IMAGE_NAME}:${BUILD_NUMBER} ."
+                // Push the Docker image to GCR
+                sh "docker push ${GCR_URL}/${IMAGE_NAME}:${BUILD_NUMBER}"
+                }
             }
         }
     }
