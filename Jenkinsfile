@@ -4,7 +4,7 @@ pipeline {
         GCR_CREDENTIALS_ID = 'ranj-w3-jenkins-json'
         IMAGE_NAME = 'ranj-week3'
         GCR_URL = 'gcr.io/lbg-mea-build-c19'
-        PROJECT_ID = 'ranj-project'
+        PROJECT_ID = 'lbg-mea-build-c19'
         CLUSTER_NAME = 'ranj-cluster'
         LOCATION = 'europe-west2-c'
         CREDENTIALS_ID = 'ranjweek3id'
